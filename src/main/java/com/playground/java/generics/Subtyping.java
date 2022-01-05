@@ -18,5 +18,8 @@ public class Subtyping {
     print(intIterable);
     print(intCollection);
     print(intList);
+
+    List<Number> numbers = Arrays.asList(1, 2, 3);
+    List<Integer> integers = Arrays.asList(1, 2, 3);
   }
 }
