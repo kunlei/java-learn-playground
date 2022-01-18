@@ -1,7 +1,7 @@
 package com.playground.java.generics.constructors;
 
-import java.net.Inet4Address;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class Pair<T, U> {
@@ -28,5 +28,7 @@ public class Pair<T, U> {
     List<Integer> ints = Arrays.asList(1, 2, 3);
     List<String> strings = Arrays.asList("one", "two");
     assert ints.getClass() == strings.getClass();
+
+    Collection<Integer> integers;
   }
 }
