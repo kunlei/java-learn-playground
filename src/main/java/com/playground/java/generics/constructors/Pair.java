@@ -30,5 +30,6 @@ public class Pair<T, U> {
     assert ints.getClass() == strings.getClass();
 
     Collection<Integer> integers;
+
   }
 }
