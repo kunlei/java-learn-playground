@@ -35,6 +35,7 @@ public class Box implements Comparable<Box> {
     words.add("Hello ");
     words.add("world!");
     String ss = words.get(0) + words.get(1);
+
     assert ss.equals("Hello world!");
   }
 }
