@@ -36,6 +36,11 @@ public class Box implements Comparable<Box> {
     words.add("world!");
     String ss = words.get(0) + words.get(1);
 
+    Set<String> strings = new HashSet<>();
+
     assert ss.equals("Hello world!");
+
+    SortedSet set;
+    NavigableSet navigableSet;
   }
 }
