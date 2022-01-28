@@ -16,22 +16,22 @@ public class EnumSets {
   }
 
   public static void main(String[] args) {
-    EnumSet<Fruit> fruits = EnumSet.allOf(Fruit.class);
-    fruits.forEach(System.out::print);
+    EnumSet<Fruit> allFruits = EnumSet.allOf(Fruit.class);
+    allFruits.forEach(System.out::println);
 
     System.out.println();
-    EnumSet<Fruit> emptyFruit = EnumSet.noneOf(Fruit.class);
-    emptyFruit.forEach(System.out::print);
+    EnumSet<Fruit> noFruits = EnumSet.noneOf(Fruit.class);
+    noFruits.forEach(System.out::println);
 
     System.out.println();
     EnumSet<Fruit> noApple = EnumSet.complementOf(EnumSet.of(Fruit.APPLE));
-    noApple.forEach(System.out::print);
+    noApple.forEach(System.out::println);
 
     System.out.println();
     EnumSet<Fruit> range = EnumSet.range(Fruit.JUICE, Fruit.AVACADO);
-    range.forEach(System.out::print);
+    range.forEach(System.out::println);
 
     EnumSet<Fruit> twoFruits = EnumSet.of(Fruit.BANANA, Fruit.WATERMELON);
-    twoFruits.forEach(System.out::print);
+    twoFruits.forEach(System.out::println);
   }
 }
