@@ -33,5 +33,6 @@ public class EnumSets {
 
     EnumSet<Fruit> twoFruits = EnumSet.of(Fruit.BANANA, Fruit.WATERMELON);
     twoFruits.forEach(System.out::println);
+
   }
 }
