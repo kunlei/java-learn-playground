@@ -1,5 +1,6 @@
 package com.playground.java.collections;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,5 +31,30 @@ public class MapTest {
 
     scores.computeIfAbsent("math", k -> 100);
     System.out.println("map after computeIfAbsent: " + scores);
+
+    scores.compute("history", (key, value) -> {
+      if (value == null) {
+        return 100;
+      } else {
+        value++;
+        return value;
+      }
+    });
+    System.out.println("map after computeIfAbsent: " + scores);
+
+    scores.merge("reading", 95, (oldValue, newValue) -> null);
+    System.out.println("map after merge(): " + scores);
+
+    scores.merge("reading", 90, (oldValue, newValue) -> oldValue);
+    System.out.println("map after merge(): " + scores);
+
+    scores.merge("reading", 90, (oldValue, newValue) -> newValue);
+    System.out.println("map after merge(): " + scores);
+
+    scores.merge("reading", 90, (oldValue, newValue) -> null);
+    System.out.println("map after merge(): " + scores);
+
+    new ArrayList<Integer>();
+
   }
 }
