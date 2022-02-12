@@ -3,6 +3,7 @@ package com.playground.java.collections;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class MapTest {
   public static void main(String[] args) {
@@ -42,6 +43,8 @@ public class MapTest {
     });
     System.out.println("map after computeIfAbsent: " + scores);
 
+    System.out.println("map before merge(): " + scores);
+
     scores.merge("reading", 95, (oldValue, newValue) -> null);
     System.out.println("map after merge(): " + scores);
 
@@ -56,5 +59,13 @@ public class MapTest {
 
     new ArrayList<Integer>();
 
+    superUsefulFunction("work");
+    superUsefulFunction(null);
+  }
+
+  public static void superUsefulFunction(String input) {
+    Objects.requireNonNull(input, "input cannot be null!");
+    System.out.println("do useful work!");
+    System.out.println("print input: " + input);
   }
 }
