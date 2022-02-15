@@ -1,9 +1,7 @@
 package com.playground.java.collections;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MapTest {
   public static void main(String[] args) {
@@ -60,7 +58,31 @@ public class MapTest {
     new ArrayList<Integer>();
 
     superUsefulFunction("work");
-    superUsefulFunction(null);
+//    superUsefulFunction(null);
+
+//    Dictionary;
+
+    Map<Integer, Set<String>> map = new HashMap<>();
+    map.computeIfAbsent(1, key -> {
+      Set<String> set = new HashSet<>();
+      set.add("a");
+      set.add("b");
+      return set;
+    });
+    map.computeIfAbsent(2, key -> {
+      Set<String> set = new HashSet<>();
+      set.add("b");
+      set.add("c");
+      return set;
+    });
+    System.out.println(map);
+
+    Map<String, List<String>> collect = map.values()
+      .stream()
+      .flatMap(Set::stream)
+      .collect(Collectors.groupingBy(o -> o));
+    System.out.println(collect);
+
   }
 
   public static void superUsefulFunction(String input) {
