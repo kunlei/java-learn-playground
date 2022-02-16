@@ -83,6 +83,7 @@ public class MapTest {
       .collect(Collectors.groupingBy(o -> o));
     System.out.println(collect);
 
+
   }
 
   public static void superUsefulFunction(String input) {
