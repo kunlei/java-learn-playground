@@ -1,5 +1,6 @@
 package com.playground.java.lambda;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 import java.util.ArrayList;
@@ -7,6 +8,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Getter
+@AllArgsConstructor
 public class Car {
   private String color;
   private double weight;
