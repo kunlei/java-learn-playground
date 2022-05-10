@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
 
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MyBatisTest {
 
@@ -50,8 +52,102 @@ public class MyBatisTest {
     System.out.println(brand.toString());
 
     sqlSession.close();
+  }
 
+  @Test
+  public void testSelectByCondition() throws Exception {
+    // accept parameters
+    int status = 0;
+    String companyName = "%" + "Apple" + "%";
+    String brandName = "%" + "MacBook" + "%";
 
+    // acquire mybatis configuration file
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // acquire SqlSession object
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    List<Brand> brands = brandMapper.selectByCondition(status, companyName, brandName);
+    brands.forEach(System.out::println);
+
+    sqlSession.close();
+  }
+
+  @Test
+  public void testSelectByConditionObject() throws Exception {
+    // accept parameters
+    int status = 1;
+    String companyName = "Keycron";
+    String brandName = "Keyboard";
+
+    // process parameters
+    companyName = "%" + companyName + "%";
+    brandName = "%" + brandName + "%";
+
+    // create object
+    Brand brand = new Brand();
+    brand.setStatus(status);
+    brand.setCompanyName(companyName);
+    brand.setBrandName(brandName);
+
+    // load mybatis configuration
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open connection
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    List<Brand> brands = brandMapper.selectByConditionObject(brand);
+    brands.forEach(System.out::println);
+
+    // release resources
+    sqlSession.close();
+  }
+
+  @Test
+  public void testSelectByConditionMap() throws Exception {
+    // accept parameters
+    int status = 1;
+    String companyName = "Keycron";
+    String brandName = "Keyboard";
+
+    // process parameters
+    companyName = "%" + companyName + "%";
+    brandName = "%" + brandName + "%";
+
+    // create map
+    Map<String, String> map = new HashMap<>();
+    map.put("status", String.valueOf(status));
+    map.put("companyName", companyName);
+    map.put("brandName", brandName);
+
+    // acquire mybatis configuration file
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // acquire SqlSession object
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    List<Brand> brands = brandMapper.selectByConditionMap(map);
+    brands.forEach(System.out::println);
+
+    sqlSession.close();
   }
 
 }

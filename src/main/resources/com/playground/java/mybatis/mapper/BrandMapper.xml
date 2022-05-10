@@ -13,4 +13,25 @@
   <select id="selectById" parameterType="int" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
     SELECT * FROM tb_brand WHERE id = #{id}
   </select>
+  <select id="selectByCondition" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT *
+    FROM tb_brand
+    WHERE status = #{status}
+    AND company_name LIKE #{companyName}
+    AND brand_name LIKE #{brandName};
+  </select>
+  <select id="selectByConditionObject" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT *
+    FROM tb_brand
+    WHERE status = #{status}
+    AND company_name LIKE #{companyName}
+    AND brand_name LIKE #{brandName};
+  </select>
+  <select id="selectByConditionMap" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT *
+    FROM tb_brand
+    WHERE status = #{status}
+    AND company_name LIKE #{companyName}
+    AND brand_name LIKE #{brandName};
+  </select>
 </mapper>
