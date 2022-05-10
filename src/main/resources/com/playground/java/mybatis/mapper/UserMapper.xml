@@ -5,8 +5,8 @@
 <!--
  namespace:
 -->
-<mapper namespace="test">
-  <select id="selectUser" resultType="com.playground.java.mybatis.User">
+<mapper namespace="com.playground.java.mybatis.mapper.UserMapper">
+  <select id="selectAll" resultType="com.playground.java.mybatis.User">
     select * from tb_user;
   </select>
 </mapper>

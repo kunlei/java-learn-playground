@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.playground.java.mybatis.mapper.BrandMapper">
+  <resultMap id="brandResultMap" type="com.playground.java.mybatis.pojo.Brand">
+    <result column="brand_name" property="brandName" />
+    <result column="company_name" property="companyName" />
+  </resultMap>
+  <select id="selectAll" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT * FROM tb_brand;
+  </select>
+  <select id="selectById" parameterType="int" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT * FROM tb_brand WHERE id = #{id}
+  </select>
+</mapper>

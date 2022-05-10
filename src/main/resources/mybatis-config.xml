@@ -8,7 +8,7 @@
       <transactionManager type="JDBC"/>
       <dataSource type="POOLED">
         <property name="driver" value="com.mysql.cj.jdbc.Driver"/>
-        <property name="url" value="jdbc:mysql:///mybatis?useSSL=false"/>
+        <property name="url" value="jdbc:mysql:///mybatis?useSSL=false&amp;allowPublicKeyRetrieval=true"/>
         <property name="username" value="root"/>
         <property name="password" value="password"/>
       </dataSource>
@@ -17,6 +17,9 @@
 
   <mappers>
 <!--    sql mapping file-->
-    <mapper resource="UserMapper.xml"/>
+<!--    <mapper resource="UserMapper.xml"/>-->
+
+    <mapper resource="com/playground/java/mybatis/mapper/UserMapper.xml" />
+    <mapper resource="com/playground/java/mybatis/mapper/BrandMapper.xml" />
   </mappers>
 </configuration>
