@@ -17,4 +17,10 @@ public interface BrandMapper {
   List<Brand> selectByConditionObject(Brand brand);
 
   List<Brand> selectByConditionMap(Map<String, String> map);
+
+  List<Brand> selectByDynamicCondition(Brand brand);
+
+  List<Brand> selectByConditionSingle(Brand brand);
+
+  void add(Brand brand);
 }

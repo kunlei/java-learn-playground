@@ -150,4 +150,110 @@ public class MyBatisTest {
     sqlSession.close();
   }
 
+  @Test
+  public void testSelectByDynamicCondition() throws Exception {
+    // accept parameters
+    int status = 1;
+    String companyName = "Keycron";
+    String brandName = "Keyboard";
+
+    // process parameters
+    companyName = "%" + companyName + "%";
+    brandName = "%" + brandName + "%";
+
+    // create map
+    Brand brand = new Brand();
+//    brand.setStatus(status);
+//    brand.setCompanyName(companyName);
+//    brand.setBrandName(brandName);
+
+    // acquire mybatis configuration file
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // acquire SqlSession object
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    List<Brand> brands = brandMapper.selectByDynamicCondition(brand);
+    brands.forEach(System.out::println);
+
+    sqlSession.close();
+  }
+
+  @Test
+  public void testSelectByConditionSingle() throws Exception {
+    // accept parameters
+    int status = 1;
+    String companyName = "Keycron";
+    String brandName = "Keyboard";
+
+    // process parameters
+    companyName = "%" + companyName + "%";
+    brandName = "%" + brandName + "%";
+
+    // create map
+    Brand brand = new Brand();
+//    brand.setStatus(status);
+    brand.setCompanyName(companyName);
+//    brand.setBrandName(brandName);
+
+    // acquire and create SqlSessionFactory
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open connection
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    List<Brand> brands = brandMapper.selectByConditionSingle(brand);
+    brands.forEach(System.out::println);
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testAdd() throws Exception {
+    // accept parameters and create new insertion entry
+    String brandName = "Rogue";
+    String companyName = "Nissan";
+    int ordered = 2;
+    String description = "SUV";
+    int status = 1;
+    Brand brand = new Brand();
+    brand.setBrandName(brandName);
+    brand.setCompanyName(companyName);
+    brand.setOrdered(ordered);
+    brand.setDescription(description);
+    brand.setStatus(status);
+
+    // load mybatis configuration file
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open session
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.add(brand);
+
+    // commit
+    sqlSession.commit();
+
+    // release resource
+    sqlSession.close();
+  }
 }

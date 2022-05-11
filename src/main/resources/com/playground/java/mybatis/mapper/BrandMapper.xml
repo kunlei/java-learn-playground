@@ -34,4 +34,43 @@
     AND company_name LIKE #{companyName}
     AND brand_name LIKE #{brandName};
   </select>
+  <select id="selectByDynamicCondition" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT *
+    FROM tb_brand
+    <where>
+      <if test="status != null">
+        AND status = #{status}
+      </if>
+      <if test="companyName != null and companyName != ''">
+        AND company_name LIKE #{companyName}
+      </if>
+      <if test="brandName != null and brandName != ''">
+        AND brand_name LIKE #{brandName}
+      </if>
+    </where>
+  </select>
+  <select id="selectByConditionSingle" resultMap="brandResultMap" resultType="com.playground.java.mybatis.pojo.Brand">
+    SELECT *
+    FROM tb_brand
+    WHERE
+      <choose>
+        <when test="status != null">
+          status = #{status}
+        </when>
+        <when test="companyName != null and companyName != ''">
+          company_name LIKE #{companyName}
+        </when>
+        <when test="brandName != null and brandName != ''">
+          brand_name LIKE #{brandName}
+        </when>
+        <otherwise>
+          1 = 1
+        </otherwise>
+      </choose>
+  </select>
+
+  <insert id="add">
+    INSERT INTO tb_brand(brand_name, company_name, ordered, description, status)
+    VALUES (#{brandName}, #{companyName}, #{ordered}, #{description}, #{status});
+  </insert>
 </mapper>
