@@ -23,4 +23,14 @@ public interface BrandMapper {
   List<Brand> selectByConditionSingle(Brand brand);
 
   void add(Brand brand);
+
+  void addAndGetPrimaryKey(Brand brand);
+
+  void update(Brand brand);
+
+  void updateDynamicSql(Brand brand);
+
+  void deleteById(int id);
+
+  void deleteByIdArray(int[] ids);
 }

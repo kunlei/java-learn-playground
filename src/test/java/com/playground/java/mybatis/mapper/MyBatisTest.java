@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.aggregator.AggregateWith;
 
 import java.io.InputStream;
 import java.util.HashMap;
@@ -243,6 +244,7 @@ public class MyBatisTest {
 
     // open session
     SqlSession sqlSession = sqlSessionFactory.openSession();
+//    SqlSession sqlSession = sqlSessionFactory.openSession(true);
 
     // acquire mapper
     BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
@@ -252,6 +254,161 @@ public class MyBatisTest {
 
     // commit
     sqlSession.commit();
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testAddAndGetPrimaryKey() throws Exception {
+    // accept parameters and create new insertion entry
+    String brandName = "Rogue";
+    String companyName = "Nissan";
+    int ordered = 2;
+    String description = "SUV";
+    int status = 1;
+    Brand brand = new Brand();
+    brand.setBrandName(brandName);
+    brand.setCompanyName(companyName);
+    brand.setOrdered(ordered);
+    brand.setDescription(description);
+    brand.setStatus(status);
+
+    // load mybatis configuration
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open SqlSession
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire object mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.addAndGetPrimaryKey(brand);
+    sqlSession.commit();
+    System.out.println(brand);
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testUpdate() throws Exception {
+    // accept parameters and create new insertion entry
+    int id = 6;
+    String brandName = "Rogue222";
+    String companyName = "Nissan";
+    int ordered = 2;
+    String description = "SUV - Updated";
+    int status = 1;
+    Brand brand = new Brand();
+    brand.setId(id);
+    brand.setBrandName(brandName);
+    brand.setCompanyName(companyName);
+    brand.setOrdered(ordered);
+    brand.setDescription(description);
+    brand.setStatus(status);
+
+    // load mybatis configuration
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open SqlSession
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire object mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.update(brand);
+    sqlSession.commit();
+    System.out.println(brand);
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testUpdateWithDynamicSql() throws Exception {
+    // accept parameters and create new insertion entry
+    int id = 6;
+    String brandName = "Rogue22233";
+    String companyName = "Nissan2323";
+    int ordered = 2;
+    String description = "SUV - Updated";
+    int status = 1;
+    Brand brand = new Brand();
+    brand.setId(id);
+    brand.setBrandName(brandName);
+//    brand.setCompanyName(companyName);
+//    brand.setOrdered(ordered);
+//    brand.setDescription(description);
+//    brand.setStatus(status);
+
+    // load mybatis configuration
+    String resource = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(resource);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open SqlSession
+    SqlSession sqlSession = sqlSessionFactory.openSession();
+
+    // acquire object mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.updateDynamicSql(brand);
+    sqlSession.commit();
+    System.out.println(brand);
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testDeleteById() throws Exception {
+    // accept parameter
+    int id = 6;
+
+    // load mybatis configuration file
+    String configFile = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(configFile);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open session
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.deleteById(id);
+
+    // release resource
+    sqlSession.close();
+  }
+
+  @Test
+  public void testDeleteByIdArray() throws Exception {
+    // accept parameter
+    int[] ids = {4, 5};
+
+    // load mybatis configuration file
+    String configFile = "mybatis-config.xml";
+    InputStream inputStream = Resources.getResourceAsStream(configFile);
+    SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+
+    // open session
+    SqlSession sqlSession = sqlSessionFactory.openSession(true);
+
+    // acquire mapper
+    BrandMapper brandMapper = sqlSession.getMapper(BrandMapper.class);
+
+    // execute query
+    brandMapper.deleteByIdArray(ids);
 
     // release resource
     sqlSession.close();
